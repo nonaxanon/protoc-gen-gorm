@@ -2809,7 +2809,7 @@ func (b *ORMBuilder) followsUpdateConventions(inType *protogen.Message, outType 
 				typeOrmable = true
 			}
 		}
-
+		fmt.Println("eeeeeeeeeeeeeeeeeeeee " + field.Desc.Message().FullName())
 		// Check that type of field is a FieldMask
 		if string(field.Desc.Message().FullName()) == "google.protobuf.FieldMask" {
 			// More than one mask in request is not allowed.
