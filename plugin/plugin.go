@@ -2809,21 +2809,18 @@ func (b *ORMBuilder) followsUpdateConventions(inType *protogen.Message, outType 
 				typeOrmable = true
 			}
 		}
-		if field != nil {
-			if field.Desc != nil {
-				if field.Desc.Message() != nil {
-					if field.Desc.Message().FullName() != "" {
-						// Check that type of field is a FieldMask
-						if string(field.Desc.Message().FullName()) == "google.protobuf.FieldMask" {
-							// More than one mask in request is not allowed.
-							if updateMask != "" {
-								return false, "", ""
-							}
-							updateMask = string(field.Desc.Name())
-						}
-					}
-				}
+		if field == nil || field.Desc == nil || field.Desc.Message() == nil {
+			return false, "", ""
+		}
+		if field.Desc.Message().FullName() == "" {
+			return false, "", ""
+		}
+		if string(field.Desc.Message().FullName()) == "google.protobuf.FieldMask" {
+			// More than one mask in request is not allowed.
+			if updateMask != "" {
+				return false, "", ""
 			}
+			updateMask = string(field.Desc.Name())
 		}
 
 	}
