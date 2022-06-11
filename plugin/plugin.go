@@ -327,7 +327,7 @@ func (b *ORMBuilder) Generate() (*pluginpb.CodeGeneratorResponse, error) {
 			}
 		}
 
-		//b.generateDefaultHandlers(protoFile, g)
+		b.generateDefaultHandlers(protoFile, g)
 		b.generateDefaultServer(protoFile, g)
 	}
 
@@ -1581,20 +1581,20 @@ func (b *ORMBuilder) generateDefaultHandlers(file *protogen.File, g *protogen.Ge
 	for _, message := range file.Messages {
 		if isOrmable(message) {
 			b.generateCreateHandler(message, g)
-			//typeName := string(message.Desc.Name())
-			//ormable := b.getOrmable(typeName)
+			typeName := string(message.Desc.Name())
+			ormable := b.getOrmable(typeName)
 
-			//if b.hasPrimaryKey(ormable) {
-			//	b.generateReadHandler(message, g)
-			//	b.generateDeleteHandler(message, g)
-			//	b.generateDeleteSetHandler(message, g)
-			//	b.generateStrictUpdateHandler(message, g)
-			//	b.generatePatchHandler(message, g)
-			//	b.generatePatchSetHandler(message, g)
-			//}
-			//
-			//b.generateApplyFieldMask(message, g)
-			//b.generateListHandler(message, g)
+			if b.hasPrimaryKey(ormable) {
+				b.generateReadHandler(message, g)
+				b.generateDeleteHandler(message, g)
+				b.generateDeleteSetHandler(message, g)
+				b.generateStrictUpdateHandler(message, g)
+				b.generatePatchHandler(message, g)
+				b.generatePatchSetHandler(message, g)
+			}
+
+			b.generateApplyFieldMask(message, g)
+			b.generateListHandler(message, g)
 		}
 
 	}
@@ -2627,28 +2627,28 @@ func (b *ORMBuilder) parseServices(file *protogen.File) {
 			var verb, fmName, baseType string
 			var follows bool
 
-			//if strings.HasPrefix(methodName, createService) {
-			//	verb = createService
-			//	follows, baseType = b.followsCreateConventions(input, output, createService)
-			//} else if strings.HasPrefix(methodName, readService) {
-			//	verb = readService
-			//	follows, baseType = b.followsReadConventions(input, output, readService)
-			//} else if strings.HasPrefix(methodName, updateSetService) {
-			//	verb = updateSetService
-			//	follows, baseType, fmName = b.followsUpdateSetConventions(input, output, updateSetService)
-			//} else if strings.HasPrefix(methodName, updateService) {
-			//	verb = updateService
-			//	follows, baseType, fmName = b.followsUpdateConventions(input, output, updateService)
-			//} else if strings.HasPrefix(methodName, deleteSetService) {
-			//	verb = deleteSetService
-			//	follows, baseType = b.followsDeleteSetConventions(input, output, method)
-			//} else if strings.HasPrefix(methodName, deleteService) {
-			//	verb = deleteService
-			//	follows, baseType = b.followsDeleteConventions(input, output, method)
-			//} else if strings.HasPrefix(methodName, listService) {
-			//	verb = listService
-			//	follows, baseType = b.followsListConventions(input, output, listService)
-			//}
+			if strings.HasPrefix(methodName, createService) {
+				verb = createService
+				follows, baseType = b.followsCreateConventions(input, output, createService)
+			} else if strings.HasPrefix(methodName, readService) {
+				verb = readService
+				follows, baseType = b.followsReadConventions(input, output, readService)
+			} else if strings.HasPrefix(methodName, updateSetService) {
+				verb = updateSetService
+				follows, baseType, fmName = b.followsUpdateSetConventions(input, output, updateSetService)
+			} else if strings.HasPrefix(methodName, updateService) {
+				verb = updateService
+				follows, baseType, fmName = b.followsUpdateConventions(input, output, updateService)
+			} else if strings.HasPrefix(methodName, deleteSetService) {
+				verb = deleteSetService
+				follows, baseType = b.followsDeleteSetConventions(input, output, method)
+			} else if strings.HasPrefix(methodName, deleteService) {
+				verb = deleteService
+				follows, baseType = b.followsDeleteConventions(input, output, method)
+			} else if strings.HasPrefix(methodName, listService) {
+				verb = listService
+				follows, baseType = b.followsListConventions(input, output, listService)
+			}
 
 			genMethod := autogenMethod{
 				Method:            method,
