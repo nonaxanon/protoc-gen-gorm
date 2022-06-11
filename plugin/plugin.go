@@ -327,7 +327,7 @@ func (b *ORMBuilder) Generate() (*pluginpb.CodeGeneratorResponse, error) {
 			}
 		}
 
-		b.generateDefaultHandlers(protoFile, g)
+		//b.generateDefaultHandlers(protoFile, g)
 		b.generateDefaultServer(protoFile, g)
 	}
 
