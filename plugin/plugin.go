@@ -2627,28 +2627,28 @@ func (b *ORMBuilder) parseServices(file *protogen.File) {
 			var verb, fmName, baseType string
 			var follows bool
 
-			if strings.HasPrefix(methodName, createService) {
-				verb = createService
-				follows, baseType = b.followsCreateConventions(input, output, createService)
-			} else if strings.HasPrefix(methodName, readService) {
-				verb = readService
-				follows, baseType = b.followsReadConventions(input, output, readService)
-			} else if strings.HasPrefix(methodName, updateSetService) {
-				verb = updateSetService
-				follows, baseType, fmName = b.followsUpdateSetConventions(input, output, updateSetService)
-			} else if strings.HasPrefix(methodName, updateService) {
-				verb = updateService
-				follows, baseType, fmName = b.followsUpdateConventions(input, output, updateService)
-			} else if strings.HasPrefix(methodName, deleteSetService) {
-				verb = deleteSetService
-				follows, baseType = b.followsDeleteSetConventions(input, output, method)
-			} else if strings.HasPrefix(methodName, deleteService) {
-				verb = deleteService
-				follows, baseType = b.followsDeleteConventions(input, output, method)
-			} else if strings.HasPrefix(methodName, listService) {
-				verb = listService
-				follows, baseType = b.followsListConventions(input, output, listService)
-			}
+			//if strings.HasPrefix(methodName, createService) {
+			//	verb = createService
+			//	follows, baseType = b.followsCreateConventions(input, output, createService)
+			//} else if strings.HasPrefix(methodName, readService) {
+			//	verb = readService
+			//	follows, baseType = b.followsReadConventions(input, output, readService)
+			//} else if strings.HasPrefix(methodName, updateSetService) {
+			//	verb = updateSetService
+			//	follows, baseType, fmName = b.followsUpdateSetConventions(input, output, updateSetService)
+			//} else if strings.HasPrefix(methodName, updateService) {
+			//	verb = updateService
+			//	follows, baseType, fmName = b.followsUpdateConventions(input, output, updateService)
+			//} else if strings.HasPrefix(methodName, deleteSetService) {
+			//	verb = deleteSetService
+			//	follows, baseType = b.followsDeleteSetConventions(input, output, method)
+			//} else if strings.HasPrefix(methodName, deleteService) {
+			//	verb = deleteService
+			//	follows, baseType = b.followsDeleteConventions(input, output, method)
+			//} else if strings.HasPrefix(methodName, listService) {
+			//	verb = listService
+			//	follows, baseType = b.followsListConventions(input, output, listService)
+			//}
 
 			genMethod := autogenMethod{
 				Method:            method,
