@@ -1150,6 +1150,12 @@ func (b *ORMBuilder) renderGormTag(field *Field) string {
 	if len(tag.Constraint) > 0 {
 		gormRes += fmt.Sprintf("constraint:%s;", tag.GetConstraint())
 	}
+	if len(tag.JoinForeignKey) > 0 {
+		gormRes += fmt.Sprintf("joinForeignKey:%s;", tag.GetJoinForeignKey())
+	}
+	if len(tag.JoinReferences) > 0 {
+		gormRes += fmt.Sprintf("joinReferences:%s;", tag.GetJoinReferences())
+	}
 	if tag.GetUnique() {
 		gormRes += "unique;"
 	}
