@@ -935,6 +935,8 @@ func (b *ORMBuilder) parseBasicFields(msg *protogen.Message, g *protogen.Generat
 			fieldType = "float32"
 		case "double":
 			fieldType = "float64"
+		case "bytes":
+			fieldType = "[]byte"
 		}
 
 		f := &Field{
